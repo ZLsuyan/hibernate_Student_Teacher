@@ -24,11 +24,10 @@ public class StudentTest {
 		s.setAge(1);
 		s.setSex("female");
 
-		Session session = sf.openSession();
+		Session session = sf.getCurrentSession();
 		session.beginTransaction();
 		session.save(s);
 		session.getTransaction().commit();
-		session.close();
 
 	}
 	
