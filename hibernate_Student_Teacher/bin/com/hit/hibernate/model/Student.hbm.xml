@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.hit.hibernate.model">
+	<!-- 当hibernate配置中类名和数据库表名一样时，可以不写table="表名"
+		   数据库表名 是不区分大小写的。
+		   因此下面的table="sudent"其实可以省略。-->
+		   
+	<class name="Student" table="_student" dynamic-update="true">
+		<!-- 第一个id指的是table表中的主键名叫id，
+		              第二个name="id"，值得是在我们的Student类中的属性对应的getId那个方法。
+		              第三个column="id"，指的是在数据库student表中的相应字段名叫id。
+		                       	当它与Student类中的属性的get方法名一样时，
+		                       	可以省略column="id"。
+		-->
+		<id name="id" column="_id">
+			<!--
+			<generator class="uuid"></generator> 此时id属性需设置为String类型，这样生成的_id的类型为varchar类型 
+			-->
+			<generator class="native"></generator>
+			<!-- 
+			           此时id属性设置为int类型，这样生成的_id的类型为Integer类型 。
+			    native是根据数据库自己决定选择哪种类型：
+			          	 对于Oracle，会选择为sequence；
+			          	 对于SQL Server，会选择为identity;
+			          	 对于Mysql，会选择为Auto_increment。
+			-->
+		</id>
+		
+		
+		<!-- 
+		           【如果是采用联合主键，那么就是用<composite-id>标签进行标记】
+		     <composite-id name="组件类StudentPK对象pk(因为StudentPK pk = new StudentPK();其中pk在Student类中是作为属性，并且是主键)" class="组件类"/>
+		     	<key-property name="主键1的名"/>
+		     	<key-property name="主键2的名"/>	
+		     	....
+		     </composite-id>  
+	    -->
+		
+		
+		<property name="name" column="_name"></property>
+		<property name="age" column="_age"></property>
+		<property name="sex" column="_sex"></property>
+		<property name="birthDate" column="_birthDate"></property>
+		<!-- 与使用Annotation方式不同的是，XML方式如果想隐藏某些属性，
+		              数据库表中不插入相应字段，直接XML文件中不配置这个属性字段即可。
+		              而Annotation方式需要使用@Transient注解方式。 -->
+    </class>
+	
+</hibernate-mapping>
